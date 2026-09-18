@@ -14,8 +14,7 @@
   --accent: #c6f03a;
   --accent-ink: #3b5400;
   --on-accent: #17160f;
-  --now: #0a7f97;
-  --next: #8a867b;
+  --now: #076c82;
   color-scheme: light;
 }
 
@@ -30,7 +29,6 @@
     --accent-ink: #c6f03a;
     --on-accent: #0d0e0b;
     --now: #5fd3e6;
-    --next: #6b6860;
     color-scheme: dark;
   }
 }
@@ -45,7 +43,6 @@
   --color-accent-ink: var(--accent-ink);
   --color-on-accent: var(--on-accent);
   --color-now: var(--now);
-  --color-next: var(--next);
 
   --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
