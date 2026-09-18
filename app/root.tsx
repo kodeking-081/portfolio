@@ -1,39 +1,49 @@
 import {
   isRouteErrorResponse,
+  Link,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import { MotionConfig } from "motion/react";
 
-import type { Route } from "./+types/root";
+import "@fontsource-variable/bricolage-grotesque/standard.css";
+import "@fontsource-variable/geist";
+import "@fontsource-variable/geist-mono";
 import "./app.css";
 
-export const links: Route.LinksFunction = () => [
-  { rel: "preconnect", href: "https://fonts.googleapis.com" },
-  {
-    rel: "preconnect",
-    href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
-  },
-  {
-    rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-  },
-];
+import type { Route } from "./+types/root";
+import { SiteFooter } from "./components/SiteFooter";
+import { SiteHeader } from "./components/SiteHeader";
+
+// Runs before first paint. CSS keys off `.js` to hold animated elements at
+// their start state; without JS they simply render their final state.
+const markJs = `document.documentElement.classList.add("js")`;
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    // The inline script mutates <html> before hydration, so React would
+    // otherwise report a className mismatch here.
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="color-scheme" content="light dark" />
+        <script dangerouslySetInnerHTML={{ __html: markJs }} />
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
+      <body className="flex min-h-dvh flex-col font-sans">
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
+        <MotionConfig reducedMotion="user">
+          <SiteHeader />
+          {children}
+          <SiteFooter />
+        </MotionConfig>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -46,27 +56,33 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
+  let status = "Error";
+  let message = "Something broke on this page.";
   let stack: string | undefined;
 
   if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
-    details =
+    status = String(error.status);
+    message =
       error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
-  } else if (import.meta.env.DEV && error && error instanceof Error) {
-    details = error.message;
+        ? "There's nothing at this address."
+        : error.statusText || message;
+  } else if (import.meta.env.DEV && error instanceof Error) {
+    message = error.message;
     stack = error.stack;
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
+    <main id="main" className="shell py-24">
+      <p className="label text-accent-ink">{status}</p>
+      <h1 className="display-lg mt-4 max-w-3xl">{message}</h1>
+      <Link
+        to="/"
+        className="label mt-10 inline-block underline-offset-4 hover:underline"
+      >
+        ← Back to the tracks
+      </Link>
       {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
+        <pre className="mt-10 overflow-x-auto rounded border border-line p-4 text-xs">
           <code>{stack}</code>
         </pre>
       )}
