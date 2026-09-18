@@ -130,7 +130,7 @@ function TrackChapter({ track }: { track: (typeof tracks)[number] }) {
       <div className="grid gap-10 border-t border-line py-16 md:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)] md:gap-16 md:py-24">
         <div className="md:sticky md:top-28 md:self-start">
           <ChapterLabel index={chapterNumber(track.id)} label="Chapter" />
-          <h2 id={headingId} className="display-md mt-5">
+          <h2 id={headingId} className="display-md mt-5 scroll-mt-40">
             {track.name}
           </h2>
           {track.blurb && (
