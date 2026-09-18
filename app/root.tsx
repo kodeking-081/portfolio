@@ -17,6 +17,7 @@ import "./app.css";
 import type { Route } from "./+types/root";
 import { SiteFooter } from "./components/SiteFooter";
 import { SiteHeader } from "./components/SiteHeader";
+import { ScrollProgress } from "./components/motion/ScrollProgress";
 
 // Runs before first paint. CSS keys off `.js` to hold animated elements at
 // their start state; without JS they simply render their final state.
@@ -39,7 +40,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <a href="#main" className="skip-link">
           Skip to content
         </a>
+        {/* reducedMotion="user": every Motion animation below honours the
+            visitor's prefers-reduced-motion setting automatically. */}
         <MotionConfig reducedMotion="user">
+          <ScrollProgress />
           <SiteHeader />
           {children}
           <SiteFooter />

@@ -125,6 +125,119 @@
   top: 1rem;
 }
 
+/* ---------- Motion ----------------------------------------------------- */
+
+/* RevealText: each word rises out of a clipping mask. The padding/negative
+   margin pair keeps descenders from being clipped. */
+.reveal-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+.reveal-word {
+  display: inline-block;
+  animation: reveal-up 0.9s cubic-bezier(0.2, 0.7, 0.1, 1) both;
+  animation-delay: calc(var(--i) * 70ms + 80ms);
+}
+@keyframes reveal-up {
+  from {
+    transform: translateY(105%);
+  }
+}
+
+/* DigitRoll: a 0–9 column shifted up by the digit's value. */
+.digit-roll {
+  font-variant-numeric: tabular-nums;
+}
+.digit-mask {
+  display: inline-block;
+  height: 1em;
+  overflow: hidden;
+  line-height: 1;
+}
+.digit-col {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(calc(var(--d) * -1em));
+  transition: transform 1.4s cubic-bezier(0.2, 0.8, 0.1, 1);
+  transition-delay: calc(var(--i) * 90ms);
+}
+.digit-col > span {
+  height: 1em;
+  line-height: 1;
+}
+/* With JS, hold at zero until DigitRoll marks itself rolled. */
+.js .digit-roll:not([data-rolled]) .digit-col {
+  transform: translateY(0);
+}
+
+/* ProgressRail: same pattern as DigitRoll. */
+.progress-fill {
+  transform: scaleX(var(--p));
+  transform-origin: left;
+  transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.1, 1) 0.15s;
+}
+.js .progress-rail:not([data-rolled]) .progress-fill {
+  transform: scaleX(0);
+}
+
+/* Status dots. `now` pulses; `next` is hollow. */
+.status-dot {
+  position: relative;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: currentColor;
+}
+.status-dot--next {
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px currentColor;
+}
+.status-dot--now::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: pulse 2s ease-out infinite;
+}
+@keyframes pulse {
+  from {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(3.2);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-word,
+  .status-dot--now::after {
+    animation: none;
+  }
+  .digit-col,
+  .progress-fill {
+    transition: none;
+  }
+  .js .digit-roll:not([data-rolled]) .digit-col {
+    transform: translateY(calc(var(--d) * -1em));
+  }
+  .js .progress-rail:not([data-rolled]) .progress-fill {
+    transform: scaleX(var(--p));
+  }
+}
+
+/* ---------- View transitions ------------------------------------------- */
+
+::view-transition-group(milestone-title) {
+  animation-duration: 450ms;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.1, 1);
+}
+
 /* The header stays put while pages cross-fade underneath it. */
 .site-header {
   view-transition-name: site-header;
