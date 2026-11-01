@@ -105,7 +105,7 @@ export default function MilestonePage({ loaderData }: Route.ComponentProps) {
                         Code ↗
                       </a>
                     ) : (
-                      <span>Not public yet</span>
+                      <span>{repo.statusLabel ?? "Institutional / Ongoing"}</span>
                     )}
                     {repo.demo && (
                       <a

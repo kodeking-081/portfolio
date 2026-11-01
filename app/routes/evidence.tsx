@@ -23,11 +23,11 @@ export default function Evidence() {
     <main id="main" className="shell pt-20 pb-24 sm:pt-28">
       <ChapterLabel label="Evidence" />
       <h1 className="display-lg mt-8 max-w-4xl">
-        The repos behind the claims.
+        The projects and code behind the claims.
       </h1>
       <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-muted">
-        {c.reposLinked} of {c.repos} repos are linked to a milestone. The rest
-        are still on the reading list.
+        {c.reposLinked} of {c.repos} tracked projects and codebases are linked to
+        a milestone.
       </p>
 
       <ul className="mt-16 divide-y divide-line border-y border-line">
@@ -49,7 +49,7 @@ export default function Evidence() {
                     Code ↗
                   </a>
                 ) : (
-                  <span>Not public yet</span>
+                  <span>{repo.statusLabel ?? "Institutional / Ongoing"}</span>
                 )}
                 {repo.demo && (
                   <a
@@ -91,7 +91,7 @@ export default function Evidence() {
             ) : (
               <p className="label self-start text-ink-muted">
                 <span className="rounded-full border border-dashed border-line px-3 py-1.5">
-                  Unread
+                  Reference
                 </span>
               </p>
             )}
@@ -101,3 +101,4 @@ export default function Evidence() {
     </main>
   );
 }
+

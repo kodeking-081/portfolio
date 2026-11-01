@@ -1,10 +1,8 @@
-# subash.
+# Subash Subedi — Portfolio & Technical Milestone Tracker
 
-A technical milestone tracker: what I can build, grouped by area, each claim
-backed by the repo that proves it.
+A verified engineering record: technical capabilities grouped by track, each
+backed by demonstrable codebases, live applications, and ongoing public sector initiatives.
 
-Built with React Router v8 (framework mode), TypeScript, Tailwind CSS v4 and
-Motion.
 
 ## Run it
 

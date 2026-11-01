@@ -3,13 +3,14 @@ export type Repo = {
   name: string;
   url?: string;
   demo?: string;
+  statusLabel?: string;
 };
 
-// Facts only, from github.com/kodeking-081. Alphabetical — no ranking.
+// Facts only, from github.com/kodeking-081 and active project initiatives.
 const repoList = [
   {
     id: "certificates",
-    name: "Certificates",
+    name: "Certificates & Credentials",
     url: "https://github.com/kodeking-081/Certificates",
   },
   {
@@ -43,8 +44,26 @@ const repoList = [
     name: "Langchain-chat_with_pdf",
     url: "https://github.com/kodeking-081/Langchain-chat_with_pdf",
   },
-  // No public URL yet — this repo has no remote.
-  { id: "portfolio", name: "portfolio (this site)" },
+  {
+    id: "ndess",
+    name: "NDESS (National Digital Education System)",
+    statusLabel: "Ongoing Initiative",
+  },
+  {
+    id: "nepal-pin",
+    name: "Nepal PIN (National Addressing & Identification System)",
+    statusLabel: "Ongoing Initiative",
+  },
+  {
+    id: "portfolio",
+    name: "portfolio (this site)",
+    statusLabel: "Current Site",
+  },
+  {
+    id: "sials",
+    name: "SIALS (School Analytics & Information System)",
+    statusLabel: "Ongoing Project",
+  },
   {
     id: "srgan-image-superresolution",
     name: "SRGAN-Image_Superresolution",
@@ -65,3 +84,4 @@ const repoList = [
 export type RepoId = (typeof repoList)[number]["id"];
 
 export const repos: readonly (Repo & { id: RepoId })[] = repoList;
+
