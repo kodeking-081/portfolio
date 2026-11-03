@@ -46,8 +46,8 @@ const repoList = [
   },
   {
     id: "ndess",
-    name: "NDESS (National Digital Education System)",
-    statusLabel: "Ongoing Initiative",
+    name: "NDESS (National Distributed Energy Storage System)",
+    statusLabel: "Ongoing Project",
   },
   {
     id: "nepal-pin",
@@ -57,6 +57,7 @@ const repoList = [
   {
     id: "portfolio",
     name: "portfolio (this site)",
+    url: "https://github.com/kodeking-081/portfolio",
     statusLabel: "Current Site",
   },
   {
